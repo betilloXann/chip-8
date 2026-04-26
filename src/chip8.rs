@@ -37,7 +37,7 @@ struct Chip8 {
 impl Chip8 {
     fn new() -> Self {
         let mut new_chip8 = Self {
-            memory: [41; 4096],
+            memory: [0; 4096],
             v: [0; 16],
             pc: 0x200,
             stack: [0; 16],

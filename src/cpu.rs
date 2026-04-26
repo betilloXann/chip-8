@@ -33,7 +33,7 @@ impl Chip8 {
                     self.display.fill(false);
                 }
                 0x00EE => {
-                    if self.pc == 0 {
+                    if self.sp == 0 {
                         panic!("Satck underflow");
                     }
                     self.sp -= 1;
@@ -51,7 +51,7 @@ impl Chip8 {
             }
             // 2NN - call
             0x2000 => {
-                if self.pc as usize >= self.stack.len() {
+                if self.sp as usize >= self.stack.len() {
                     panic!("Stack overflow");
                 }
 

@@ -1,8 +1,9 @@
 //Lógica del CPU (fetch, decode, execute)
 impl Chip8 {
+    //Buscar el ingrediente
     fn fetch(&mut self) -> u16 {
-        let firts = self.memory[self.pc as usize]; // 170
-        let second = self.memory[(self.pc + 1) as usize]; // 187
+        let first = self.memory[self.pc as usize];
+        let second = self.memory[(self.pc + 1) as usize];
 
         let opcode = ((first as u16) << 8) | (second as u16);
 
@@ -11,7 +12,92 @@ impl Chip8 {
         opcode
     }
 
-    fn decode() {}
+    //Leer la receta
+    //Es como gritar: Siguiente
+    fn cycle(&mut self) {
+        let opcode = self.fetch(); // Primero busca el ingrediente
+        self.decode(opcode); // Busca entenderlo
+    }
 
-    fn execute() {}
+    //Piensa que hacer
+    fn decode(&mut self, opcode: u16) {
+        self.execute(opcode);
+    }
+
+    //Ya sabe que receta es
+    fn execute(&mut self, opcode: u16) {
+        match opcode & 0xF000 {
+            //Borrado de pantalla
+            0x0000 => match opcode {
+                0x00E0 => {
+                    self.display.fill(false);
+                }
+                0x00EE => {
+                    self.sp -= 1;
+                    self.pc = self.stack[self.sp as usize];
+                }
+                _ => println!("Comando de sistema desconocido: {:X}", opcode),
+            },
+            //Salto
+            0x1000 => {
+                let direccion = opcode & 0x0FFF;
+                self.pc = direccion;
+            }
+            0x2000 => {
+                let direccion = opcode & 0x0FFF;
+
+                self.stack[self.sp as usize] = self.pc;
+                self.sp += 1;
+
+                self.pc = direccion;
+            }
+            //Mochila
+            0x6000 => {
+                let x = ((opcode & 0x0F00) >> 8) as usize;
+                let valor = (opcode & 0x00FF) as u8;
+                self.v[x] = valor;
+            }
+            //El sumador
+            0x7000 => {
+                let x = ((opcode & 0x0F00) >> 8) as usize;
+                let valor = (opcode & 0x00FF) as u8;
+
+                self.v[x] = self.v[x].wrapping_add(valor);
+            }
+            //El mapeador
+            0xA000 => {
+                let direccion = opcode & 0x0FFF;
+                self.i = direccion;
+            }
+            //El pintor
+            0xD000 => {
+                let x = self.v[((opcode & 0x0F00) >> 8) as usize] as usize;
+                let y = self.v[((opcode & 0x00F0) >> 4) as usize] as usize;
+                let n = (opcode & 0x000F) as usize;
+
+                self.v[0xF] = 0;
+
+                for fila in 0..n {
+                    let pixeles_fila = self.memory[(self.i as usize) + fila];
+
+                    for columna in 0..8 {
+                        if (pixeles_fila & (0x80u8 >> columna)) != 0 {
+                            let px = (x + columna) % 64;
+                            let py = (y + fila) % 32;
+                            let index = py * 64 + px;
+
+                            if self.display[index] {
+                                self.v[0xF] = 1;
+                            }
+
+                            self.display[index] ^= true;
+                        }
+                    }
+                }
+            }
+            _ => {
+                //println("Opcode no implementado, no lo tengo bro: {:X}", opcode);
+            }
+        }
+    }
 }

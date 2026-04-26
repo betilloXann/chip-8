@@ -21,22 +21,22 @@ const FONTSET: [u8; 80] = [
 ];
 
 //Todo lo basico para la CPU del CHIP-8
-struct Chip8 {
-    memory: [u8; 4096],       //Memoria RAM
-    v: [u8; 16],              //Registros generales (V0 a VF)
-    pc: u16,                  //Contador (Program Counter) Que programa sigue
-    stack: [u16; 16],         //Pila de llamadas
-    sp: u8,                   //Apuntador
-    delay_timer: u8,          //Temporizador demcrementa (60 Hz)
-    sound_timer: u8,          //Sistema de sonido
-    i: u16,                   //Registro de indice (Puntero auxiliar)
-    display: [bool; 64 * 32], //Pantalla
-    keypad: [bool; 16],       //Teclas
+pub struct Chip8 {
+    pub memory: [u8; 4096],       //Memoria RAM
+    pub v: [u8; 16],              //Registros generales (V0 a VF)
+    pub pc: u16,                  //Contador (Program Counter) Que programa sigue
+    pub stack: [u16; 16],         //Pila de llamadas
+    pub sp: u8,                   //Apuntador
+    pub delay_timer: u8,          //Temporizador demcrementa (60 Hz)
+    pub sound_timer: u8,          //Sistema de sonido
+    pub i: u16,                   //Registro de indice (Puntero auxiliar)
+    pub display: [bool; 64 * 32], //Pantalla
+    pub keypad: [bool; 16],       //Teclas
 }
 
 impl Chip8 {
-    fn new() -> Self {
-        let mut new_chip8 = Self {
+    pub fn new() -> Self {
+        let mut chip8 = Self {
             memory: [0; 4096],
             v: [0; 16],
             pc: 0x200,
@@ -49,9 +49,9 @@ impl Chip8 {
             keypad: [false; 16],
         };
 
-        new_chip8.memory[..80].copy_from_slice(&FONTSET);
+        chip8.memory[..80].copy_from_slice(&FONTSET);
 
-        new_chip8
+        chip8
     }
 
     pub fn load_rom(&mut self, data: &[u8]) {

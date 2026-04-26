@@ -1,3 +1,5 @@
+use crate::chip8::Chip8;
+
 //Lógica del CPU (fetch, decode, execute)
 impl Chip8 {
     //Buscar el ingrediente
@@ -14,7 +16,7 @@ impl Chip8 {
 
     //Leer la receta
     //Es como gritar: Siguiente
-    fn cycle(&mut self) {
+    pub fn cycle(&mut self) {
         let opcode = self.fetch(); // Primero busca el ingrediente
         self.decode(opcode); // Busca entenderlo
     }
@@ -108,7 +110,7 @@ impl Chip8 {
             }
         }
     }
-    fn tick(&mut self) {
+    pub fn tick(&mut self) {
         if self.delay_timer > 0 {
             self.delay_timer -= 1;
         }

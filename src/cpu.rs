@@ -33,41 +33,48 @@ impl Chip8 {
                     self.display.fill(false);
                 }
                 0x00EE => {
+                    if self.pc == 0 {
+                        panic!("Satck underflow");
+                    }
                     self.sp -= 1;
                     self.pc = self.stack[self.sp as usize];
                 }
-                _ => println!("Comando de sistema desconocido: {:X}", opcode),
+                _ => {
+                    // no - op
+                }
             },
-            //Salto
+            //1NN - Salto
             0x1000 => {
                 let direccion = opcode & 0x0FFF;
+
                 self.pc = direccion;
             }
+            // 2NN - call
             0x2000 => {
-                let direccion = opcode & 0x0FFF;
+                if self.pc as usize >= self.stack.len() {
+                    panic!("Stack overflow");
+                }
 
                 self.stack[self.sp as usize] = self.pc;
                 self.sp += 1;
-
-                self.pc = direccion;
+                self.pc = opcode & 0x0FFF;
             }
-            //Mochila
+            // 6XKK - Mochila
             0x6000 => {
                 let x = ((opcode & 0x0F00) >> 8) as usize;
                 let valor = (opcode & 0x00FF) as u8;
                 self.v[x] = valor;
             }
-            //El sumador
+            // 7XKK - El sumador
             0x7000 => {
                 let x = ((opcode & 0x0F00) >> 8) as usize;
                 let valor = (opcode & 0x00FF) as u8;
 
                 self.v[x] = self.v[x].wrapping_add(valor);
             }
-            //El mapeador
+            // ANNN - El mapeador
             0xA000 => {
-                let direccion = opcode & 0x0FFF;
-                self.i = direccion;
+                self.i = opcode & 0x0FFF;
             }
             //El pintor
             0xD000 => {
@@ -78,19 +85,20 @@ impl Chip8 {
                 self.v[0xF] = 0;
 
                 for fila in 0..n {
-                    let pixeles_fila = self.memory[(self.i as usize) + fila];
+                    let byte = self.memory[self.i as usize + fila];
 
                     for columna in 0..8 {
-                        if (pixeles_fila & (0x80u8 >> columna)) != 0 {
+                        if (byte & (0x80u8 >> columna)) != 0 {
                             let px = (x + columna) % 64;
                             let py = (y + fila) % 32;
                             let index = py * 64 + px;
 
-                            if self.display[index] {
+                            let before = self.display[index];
+                            self.display[index] ^= true;
+
+                            if before && !self.display[index] {
                                 self.v[0xF] = 1;
                             }
-
-                            self.display[index] ^= true;
                         }
                     }
                 }

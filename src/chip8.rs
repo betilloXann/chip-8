@@ -53,4 +53,11 @@ impl Chip8 {
 
         new_chip8
     }
+
+    pub fn load_rom(&mut self, data: &[u8]) {
+        let start = 0x200;
+        let end = start + data.len();
+
+        self.memory[start..end].copy_from_slice(data)
+    }
 }

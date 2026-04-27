@@ -22,16 +22,16 @@ const FONTSET: [u8; 80] = [
 
 //Todo lo basico para la CPU del CHIP-8
 pub struct Chip8 {
-    pub memory: [u8; 4096],       //Memoria RAM
-    pub v: [u8; 16],              //Registros generales (V0 a VF)
-    pub pc: u16,                  //Contador (Program Counter) Que programa sigue
-    pub stack: [u16; 16],         //Pila de llamadas
-    pub sp: u8,                   //Apuntador
-    pub delay_timer: u8,          //Temporizador demcrementa (60 Hz)
-    pub sound_timer: u8,          //Sistema de sonido
-    pub i: u16,                   //Registro de indice (Puntero auxiliar)
+    pub memory: [u8; 4096], //Memoria RAM
+    pub v: [u8; 16],        //Registros generales (V0 a VF)
+    pub pc: u16,            //Contador (Program Counter) Que programa sigue
+    pub stack: [u16; 16],   //Pila de llamadas
+    pub sp: u8,             //Apuntador
+    pub delay_timer: u8,    //Temporizador demcrementa (60 Hz)
+    pub sound_timer: u8,    //Sistema de sonido
+    pub i: u16,             //Registro de indice (Puntero auxiliar)
     pub display: [bool; 64 * 32], //Pantalla
-    pub keypad: [bool; 16],       //Teclas
+                            //pub keypad: [bool; 16],           //Teclas
 }
 
 impl Chip8 {
@@ -46,7 +46,7 @@ impl Chip8 {
             sound_timer: 0,
             i: 0,
             display: [false; 64 * 32],
-            keypad: [false; 16],
+            // keypad: [false; 16],
         };
 
         chip8.memory[..80].copy_from_slice(&FONTSET);

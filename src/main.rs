@@ -23,7 +23,7 @@ fn main() {
     window.limit_update_rate(Some(Duration::from_micros(16667)));
 
     let mut chip8 = Chip8::new();
-    let rom = fs::read("roms/IBM.ch8").expect("No se puede leer la ROM");
+    let rom = fs::read("src/roms/BETILLO.ch8").expect("No se puede leer la ROM");
     chip8.load_rom(&rom);
 
     let mut buffer: Vec<u32> = vec![0; 64 * 32];

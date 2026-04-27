@@ -61,6 +61,14 @@ impl Chip8 {
                 self.sp += 1;
                 self.pc = opcode & 0x0FFF;
             }
+            0x3000 => {
+                let x = ((opcode & 0x0F00) >> 8) as usize;
+                let valor = (opcode & 0x00FF) as u8;
+
+                if self.v[x] == valor {
+                    self.pc += 2;
+                }
+            }
             // 6XKK - Mochila
             0x6000 => {
                 let x = ((opcode & 0x0F00) >> 8) as usize;
@@ -105,6 +113,8 @@ impl Chip8 {
                     }
                 }
             }
+            0xF000 => {}
+
             _ => {
                 println!("Opcode no implementado, no lo tengo bro: {:04X}", opcode);
             }

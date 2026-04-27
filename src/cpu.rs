@@ -113,7 +113,15 @@ impl Chip8 {
                     }
                 }
             }
-            0xF000 => {}
+            0xF000 => match opcode & 0x00FF {
+                0x1E => {
+                    let x = ((opcode & 0x0F00) >> 8) as usize;
+                    self.i = self.i.wrapping_add(self.v[x] as u16);
+                }
+                _ => {
+                    println!("Opencode F no implementado: {:04X}", opcode);
+                }
+            },
 
             _ => {
                 println!("Opcode no implementado, no lo tengo bro: {:04X}", opcode);

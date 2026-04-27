@@ -106,7 +106,7 @@ impl Chip8 {
                 }
             }
             _ => {
-                //println("Opcode no implementado, no lo tengo bro: {:X}", opcode);
+                println!("Opcode no implementado, no lo tengo bro: {:04X}", opcode);
             }
         }
     }

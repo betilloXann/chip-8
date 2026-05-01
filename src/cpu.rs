@@ -105,7 +105,7 @@ impl Chip8 {
             }
             0x8000 => {
                 let x = ((opcode & 0x0F00) >> 8) as usize;
-                let y = ((opcode & 0x0F00) >> 4) as usize;
+                let y = ((opcode & 0x00F0) >> 4) as usize;
 
                 match opcode & 0x000F {
                     0x0 => {
@@ -219,7 +219,6 @@ impl Chip8 {
                     println!("Opencode F no implementado: {:04X}", opcode);
                 }
             },
-
             _ => {
                 println!("Opcode no implementado, no lo tengo bro: {:04X}", opcode);
             }

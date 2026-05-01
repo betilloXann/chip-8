@@ -113,6 +113,7 @@ impl Chip8 {
                     }
                 }
             }
+            //0xF000 Gestion de temporizadores
             0xF000 => match opcode & 0x00FF {
                 0x1E => {
                     let x = ((opcode & 0x0F00) >> 8) as usize;

@@ -41,6 +41,49 @@ Como prueba de concepto final, no solo corrí juegos existentes, sino que **dise
 
 ---
 
+## 🛠️ Estado de Implementación de Opcodes (Set Estándar)
+
+A continuación se detalla el progreso de las 35 instrucciones estándar de CHIP-8 según la referencia técnica de Cowgod:
+
+| Opcode | Instrucción | Descripción | Estado |
+| :--- | :--- | :--- | :---: |
+| `00E0` | **CLS** | Limpia la pantalla | ✅ |
+| `00EE` | **RET** | Retorna de una subrutina | ✅ |
+| `1NNN` | **JP addr** | Salto a la dirección `NNN` | ✅ |
+| `2NNN` | **CALL addr** | Llama a una subrutina en `NNN` | ✅ |
+| `3XKK` | **SE Vx, byte** | Salta si `VX == KK` | ✅ |
+| `4XKK` | **SNE Vx, byte** | Salta si `VX != KK` | *Pendiente* |
+| `5XY0` | **SE Vx, Vy** | Salta si `VX == VY` | *Pendiente* |
+| `6XKK` | **LD Vx, byte** | Establece `VX = KK` | ✅ |
+| `7XKK` | **ADD Vx, byte** | Establece `VX = VX + KK` | ✅ |
+| `8XY0` | **LD Vx, Vy** | Establece `VX = VY` | *Pendiente* |
+| `8XY1` | **OR Vx, Vy** | bitwise `VX OR VY` | *Pendiente* |
+| `8XY2` | **AND Vx, Vy** | bitwise `VX AND VY` | *Pendiente* |
+| `8XY3` | **XOR Vx, Vy** | bitwise `VX XOR VY` | *Pendiente* |
+| `8XY4` | **ADD Vx, Vy** | `VX + VY`, `VF = carry` | *Pendiente* |
+| `8XY5` | **SUB Vx, Vy** | `VX - VY`, `VF = NOT borrow` | *Pendiente* |
+| `8XY6` | **SHR Vx** | Desplazamiento a la derecha | *Pendiente* |
+| `8XY7` | **SUBN Vx, Vy** | `VY - VX`, `VF = NOT borrow` | *Pendiente* |
+| `8XYE` | **SHL Vx** | Desplazamiento a la izquierda | *Pendiente* |
+| `9XY0` | **SNE Vx, Vy** | Salta si `VX != VY` | *Pendiente* |
+| `ANNN` | **LD I, addr** | Establece `I = NNN` | ✅ |
+| `BNNN` | **JP V0, addr** | Salto a `NNN + V0` | *Pendiente* |
+| `CXKK` | **RND Vx, byte** | `VX = random AND KK` | *Pendiente* |
+| `DXYN` | **DRW Vx, Vy, n** | Dibuja sprite en pantalla | ✅ |
+| `EX9E` | **SKP Vx** | Salta si tecla en `VX` está pulsada | *Pendiente* |
+| `EXA1` | **SKNP Vx** | Salta si tecla en `VX` NO está pulsada | *Pendiente* |
+| `FX07` | **LD Vx, DT** | Lee Delay Timer | *Pendiente* |
+| `FX0A` | **LD Vx, K** | Espera pulsación de tecla | *Pendiente* |
+| `FX15` | **LD DT, Vx** | Establece Delay Timer | *Pendiente* |
+| `FX18` | **LD ST, Vx** | Establece Sound Timer | *Pendiente* |
+| `FX1E` | **ADD I, Vx** | `I = I + VX` | ✅ |
+| `FX29` | **LD F, Vx** | `I =` ubicación fuente para `VX` | *Pendiente* |
+| `FX33` | **LD B, Vx** | Almacena BCD de `VX` en `I, I+1, I+2` | *Pendiente* |
+| `FX55` | **LD [I], Vx** | Guarda `V0..VX` en memoria | *Pendiente* |
+| `FX65` | **LD Vx, [I]** | Carga `V0..VX` desde memoria | *Pendiente* |
+
+---
+
 ## 🛠️ Instalación y Uso
 
 ### Opción A: Descargar el Binario (Recomendado)
@@ -68,4 +111,4 @@ cd chip-8
 3. Ejecuta el emulador:
 `./target/release/chip-8`
 
-Desarrollado con 🦀 por betilloXann
+*Desarrollado con 🦀 por betilloXann*

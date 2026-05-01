@@ -72,15 +72,15 @@ A continuación se detalla el progreso de las 35 instrucciones estándar de CHIP
 | `DXYN` | **DRW Vx, Vy, n** | Dibuja sprite en pantalla | ✅ |
 | `EX9E` | **SKP Vx** | Salta si tecla en `VX` está pulsada | *Pendiente* |
 | `EXA1` | **SKNP Vx** | Salta si tecla en `VX` NO está pulsada | *Pendiente* |
-| `FX07` | **LD Vx, DT** | Lee Delay Timer | *Pendiente* |
-| `FX0A` | **LD Vx, K** | Espera pulsación de tecla | *Pendiente* |
-| `FX15` | **LD DT, Vx** | Establece Delay Timer | *Pendiente* |
-| `FX18` | **LD ST, Vx** | Establece Sound Timer | *Pendiente* |
+| `FX07` | **LD Vx, DT** | Lee Delay Timer | ✅ |
+| `FX0A` | **LD Vx, K** | Espera pulsación de tecla | ✅ |
+| `FX15` | **LD DT, Vx** | Establece Delay Timer | ✅ |
+| `FX18` | **LD ST, Vx** | Establece Sound Timer | ✅ |
 | `FX1E` | **ADD I, Vx** | `I = I + VX` | ✅ |
-| `FX29` | **LD F, Vx** | `I =` ubicación fuente para `VX` | *Pendiente* |
-| `FX33` | **LD B, Vx** | Almacena BCD de `VX` en `I, I+1, I+2` | *Pendiente* |
-| `FX55` | **LD [I], Vx** | Guarda `V0..VX` en memoria | *Pendiente* |
-| `FX65` | **LD Vx, [I]** | Carga `V0..VX` desde memoria | *Pendiente* |
+| `FX29` | **LD F, Vx** | `I =` ubicación fuente para `VX` | ✅ |
+| `FX33` | **LD B, Vx** | Almacena BCD de `VX` en `I, I+1, I+2` | ✅ |
+| `FX55` | **LD [I], Vx** | Guarda `V0..VX` en memoria | ✅ |
+| `FX65` | **LD Vx, [I]** | Carga `V0..VX` desde memoria | ✅ |
 
 ---
 

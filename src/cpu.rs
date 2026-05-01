@@ -210,15 +210,63 @@ impl Chip8 {
                 }
             }
             //0xF000 Gestion de temporizadores
-            0xF000 => match opcode & 0x00FF {
-                0x1E => {
-                    let x = ((opcode & 0x0F00) >> 8) as usize;
-                    self.i = self.i.wrapping_add(self.v[x] as u16);
+            0xF000 => {
+                let x = ((opcode & 0x0F00) >> 8) as usize;
+
+                match opcode & 0x00FF {
+                    0x07 => {
+                        self.v[x] = self.delay_timer;
+                    }
+                    0x0A => {
+                        let mut press = false;
+
+                        for i in 0..self.keypad.len() {
+                            if self.keypad[i] == true {
+                                self.v[x] = i as u8;
+                                press = true;
+                                break;
+                            }
+                        }
+                        if !press {
+                            self.pc -= 2;
+                        }
+                    }
+                    0x15 => {
+                        self.delay_timer = self.v[x];
+                    }
+                    0x18 => {
+                        self.sound_timer = self.v[x];
+                    }
+                    0x1E => {
+                        self.i = self.i.wrapping_add(self.v[x] as u16);
+                    }
+                    0x29 => {
+                        self.i = (self.v[x] as u16) * 5;
+                    }
+                    0x33 => {
+                        let cen = self.v[x] / 100;
+                        let dec = (self.v[x] / 10) % 10;
+                        let uni = self.v[x] % 10;
+
+                        self.memory[self.i as usize] = cen;
+                        self.memory[(self.i + 1) as usize] = dec;
+                        self.memory[(self.i + 2) as usize] = uni;
+                    }
+                    0x55 => {
+                        for i in 0..=x {
+                            self.memory[(self.i as usize) + i] = self.v[i];
+                        }
+                    }
+                    0x65 => {
+                        for i in 0..=x {
+                            self.v[i] = self.memory[(self.i as usize) + i];
+                        }
+                    }
+                    _ => {
+                        println!("Opencode F no implementado: {:04X}", opcode);
+                    }
                 }
-                _ => {
-                    println!("Opencode F no implementado: {:04X}", opcode);
-                }
-            },
+            }
             _ => {
                 println!("Opcode no implementado, no lo tengo bro: {:04X}", opcode);
             }

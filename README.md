@@ -52,8 +52,8 @@ A continuación se detalla el progreso de las 35 instrucciones estándar de CHIP
 | `1NNN` | **JP addr** | Salto a la dirección `NNN` | ✅ |
 | `2NNN` | **CALL addr** | Llama a una subrutina en `NNN` | ✅ |
 | `3XKK` | **SE Vx, byte** | Salta si `VX == KK` | ✅ |
-| `4XKK` | **SNE Vx, byte** | Salta si `VX != KK` | *Pendiente* |
-| `5XY0` | **SE Vx, Vy** | Salta si `VX == VY` | *Pendiente* |
+| `4XKK` | **SNE Vx, byte** | Salta si `VX != KK` | ✅ |
+| `5XY0` | **SE Vx, Vy** | Salta si `VX == VY` | ✅ |
 | `6XKK` | **LD Vx, byte** | Establece `VX = KK` | ✅ |
 | `7XKK` | **ADD Vx, byte** | Establece `VX = VX + KK` | ✅ |
 | `8XY0` | **LD Vx, Vy** | Establece `VX = VY` | *Pendiente* |

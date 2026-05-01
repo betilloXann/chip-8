@@ -80,6 +80,16 @@ impl Chip8 {
                     self.pc += 2;
                 }
             }
+            0x5000 => {
+                if opcode & 0x000F == 0 {
+                    let x = ((opcode & 0x0F00) >> 8) as usize;
+                    let y = ((opcode & 0x00F0) >> 4) as usize;
+
+                    if self.v[x] == self.v[y] {
+                        self.pc += 2;
+                    }
+                }
+            }
             // 6XKK - Mochila
             0x6000 => {
                 let x = ((opcode & 0x0F00) >> 8) as usize;

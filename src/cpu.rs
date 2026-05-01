@@ -103,6 +103,71 @@ impl Chip8 {
 
                 self.v[x] = self.v[x].wrapping_add(valor);
             }
+            0x8000 => {
+                let x = ((opcode & 0x0F00) >> 8) as usize;
+                let y = ((opcode & 0x0F00) >> 4) as usize;
+
+                match opcode & 0x000F {
+                    0x0 => {
+                        self.v[x] = self.v[y];
+                    }
+                    0x1 => {
+                        self.v[x] = self.v[x] | self.v[y];
+                    }
+                    0x2 => {
+                        self.v[x] = self.v[x] & self.v[y];
+                    }
+                    0x3 => {
+                        self.v[x] = self.v[x] ^ self.v[y];
+                    }
+                    0x4 => {
+                        let mut u16_x = self.v[x] as u16;
+                        let u16_y = self.v[y] as u16;
+                        u16_x = u16_x + u16_y;
+
+                        if u16_x > 255 {
+                            self.v[0xF] = 1;
+                        } else {
+                            self.v[0xF] = 0;
+                        }
+
+                        self.v[x] = (u16_x & 0xFF) as u8;
+                    }
+                    0x5 => {
+                        if self.v[x] >= self.v[y] {
+                            self.v[0xF] = 1;
+                        } else {
+                            self.v[0xF] = 0;
+                        }
+
+                        let valor = self.v[x].wrapping_sub(self.v[y]);
+                        self.v[x] = valor;
+                    }
+                    0x6 => {
+                        let least_x = self.v[x] & 1;
+                        self.v[0xF] = least_x;
+                        self.v[x] = self.v[x] >> 1;
+                    }
+                    0x7 => {
+                        if self.v[y] >= self.v[x] {
+                            self.v[0xF] = 1;
+                        } else {
+                            self.v[0xF] = 0;
+                        }
+
+                        let valor = self.v[y].wrapping_sub(self.v[x]);
+                        self.v[x] = valor;
+                    }
+                    0xE => {
+                        let most = (self.v[x] >> 7) & 1;
+                        self.v[0xF] = most;
+                        self.v[x] = self.v[x] << 1;
+                    }
+                    _ => {
+                        println!("Opencode 8 no implementado: {:04X}", opcode);
+                    }
+                }
+            }
             0x9000 => {
                 if opcode & 0x000F == 0 {
                     let x = ((opcode & 0x0F00) >> 8) as usize;

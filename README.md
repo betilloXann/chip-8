@@ -56,15 +56,15 @@ A continuación se detalla el progreso de las 35 instrucciones estándar de CHIP
 | `5XY0` | **SE Vx, Vy** | Salta si `VX == VY` | ✅ |
 | `6XKK` | **LD Vx, byte** | Establece `VX = KK` | ✅ |
 | `7XKK` | **ADD Vx, byte** | Establece `VX = VX + KK` | ✅ |
-| `8XY0` | **LD Vx, Vy** | Establece `VX = VY` | *Pendiente* |
-| `8XY1` | **OR Vx, Vy** | bitwise `VX OR VY` | *Pendiente* |
-| `8XY2` | **AND Vx, Vy** | bitwise `VX AND VY` | *Pendiente* |
-| `8XY3` | **XOR Vx, Vy** | bitwise `VX XOR VY` | *Pendiente* |
-| `8XY4` | **ADD Vx, Vy** | `VX + VY`, `VF = carry` | *Pendiente* |
-| `8XY5` | **SUB Vx, Vy** | `VX - VY`, `VF = NOT borrow` | *Pendiente* |
-| `8XY6` | **SHR Vx** | Desplazamiento a la derecha | *Pendiente* |
-| `8XY7` | **SUBN Vx, Vy** | `VY - VX`, `VF = NOT borrow` | *Pendiente* |
-| `8XYE` | **SHL Vx** | Desplazamiento a la izquierda | *Pendiente* |
+| `8XY0` | **LD Vx, Vy** | Establece `VX = VY` | ✅ |
+| `8XY1` | **OR Vx, Vy** | bitwise `VX OR VY` | ✅ |
+| `8XY2` | **AND Vx, Vy** | bitwise `VX AND VY` | ✅ |
+| `8XY3` | **XOR Vx, Vy** | bitwise `VX XOR VY` | ✅ |
+| `8XY4` | **ADD Vx, Vy** | `VX + VY`, `VF = carry` | ✅ |
+| `8XY5` | **SUB Vx, Vy** | `VX - VY`, `VF = NOT borrow` | ✅ |
+| `8XY6` | **SHR Vx** | Desplazamiento a la derecha | ✅ |
+| `8XY7` | **SUBN Vx, Vy** | `VY - VX`, `VF = NOT borrow` | ✅ |
+| `8XYE` | **SHL Vx** | Desplazamiento a la izquierda | ✅ |
 | `9XY0` | **SNE Vx, Vy** | Salta si `VX != VY` | ✅ |
 | `ANNN` | **LD I, addr** | Establece `I = NNN` | ✅ |
 | `BNNN` | **JP V0, addr** | Salto a `NNN + V0` | *Pendiente* |

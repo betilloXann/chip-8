@@ -1,3 +1,5 @@
+use std::usize;
+
 use crate::chip8::Chip8;
 
 //Lógica del CPU (fetch, decode, execute)
@@ -66,6 +68,15 @@ impl Chip8 {
                 let valor = (opcode & 0x00FF) as u8;
 
                 if self.v[x] == valor {
+                    self.pc += 2;
+                }
+            }
+            //
+            0x4000 => {
+                let x = ((opcode & 0x0F00) >> 8) as usize;
+                let valor = (opcode & 0x00FF) as u8;
+
+                if self.v[x] != valor {
                     self.pc += 2;
                 }
             }

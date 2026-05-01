@@ -65,7 +65,7 @@ A continuación se detalla el progreso de las 35 instrucciones estándar de CHIP
 | `8XY6` | **SHR Vx** | Desplazamiento a la derecha | *Pendiente* |
 | `8XY7` | **SUBN Vx, Vy** | `VY - VX`, `VF = NOT borrow` | *Pendiente* |
 | `8XYE` | **SHL Vx** | Desplazamiento a la izquierda | *Pendiente* |
-| `9XY0` | **SNE Vx, Vy** | Salta si `VX != VY` | *Pendiente* |
+| `9XY0` | **SNE Vx, Vy** | Salta si `VX != VY` | ✅ |
 | `ANNN` | **LD I, addr** | Establece `I = NNN` | ✅ |
 | `BNNN` | **JP V0, addr** | Salto a `NNN + V0` | *Pendiente* |
 | `CXKK` | **RND Vx, byte** | `VX = random AND KK` | *Pendiente* |

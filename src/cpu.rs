@@ -49,9 +49,9 @@ impl Chip8 {
             },
             //1NN - Salto
             0x1000 => {
-                let direccion = opcode & 0x0FFF;
+                let nnn = opcode & 0x0FFF;
 
-                self.pc = direccion;
+                self.pc = nnn;
             }
             // 2NN - call
             0x2000 => {
@@ -188,6 +188,7 @@ impl Chip8 {
 
                 self.pc = nnn + v0;
             }
+            0xC000 => {}
             //El pintor
             0xD000 => {
                 let x = self.v[((opcode & 0x0F00) >> 8) as usize] as usize;

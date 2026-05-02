@@ -209,6 +209,27 @@ impl Chip8 {
                     }
                 }
             }
+            0xE000 => {
+                let x = ((opcode & 0x0F00) >> 8) as usize;
+
+                match opcode & 0x00FF {
+                    0x9E => {
+                        let tecla = self.v[x] as usize;
+
+                        if self.keypad[tecla] {
+                            self.pc += 2;
+                        }
+                    }
+                    0xA1 => {
+                        let tecla = self.v[x] as usize;
+
+                        if !self.keypad[tecla] {
+                            self.pc += 2;
+                        }
+                    }
+                    _ => {}
+                }
+            }
             //0xF000 Gestion de temporizadores
             0xF000 => {
                 let x = ((opcode & 0x0F00) >> 8) as usize;

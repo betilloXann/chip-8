@@ -58,7 +58,7 @@ fn main() {
     window.limit_update_rate(Some(Duration::from_micros(16667)));
 
     let mut chip8 = Chip8::new();
-    let rom = fs::read("src/roms/4-flags.ch8").expect("No se puede leer la ROM");
+    let rom = fs::read("src/roms/6-keypad.ch8").expect("No se puede leer la ROM");
     chip8.load_rom(&rom);
 
     let mut buffer: Vec<u32> = vec![0; 64 * 32];
@@ -66,6 +66,7 @@ fn main() {
     while window.is_open() && !window.is_key_down(Key::Escape) {
         //Teclado
         actualizar_teclado(&window, &mut chip8);
+
         // Control de velocidad de la CPU
         for _ in 0..8 {
             chip8.cycle();

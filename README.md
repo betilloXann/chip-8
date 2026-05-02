@@ -70,8 +70,8 @@ A continuación se detalla el progreso de las 35 instrucciones estándar de CHIP
 | `BNNN` | **JP V0, addr** | Salto a `NNN + V0` | *Pendiente* |
 | `CXKK` | **RND Vx, byte** | `VX = random AND KK` | *Pendiente* |
 | `DXYN` | **DRW Vx, Vy, n** | Dibuja sprite en pantalla | ✅ |
-| `EX9E` | **SKP Vx** | Salta si tecla en `VX` está pulsada | *Pendiente* |
-| `EXA1` | **SKNP Vx** | Salta si tecla en `VX` NO está pulsada | *Pendiente* |
+| `EX9E` | **SKP Vx** | Salta si tecla en `VX` está pulsada | ✅ |
+| `EXA1` | **SKNP Vx** | Salta si tecla en `VX` NO está pulsada | ✅ |
 | `FX07` | **LD Vx, DT** | Lee Delay Timer | ✅ |
 | `FX0A` | **LD Vx, K** | Espera pulsación de tecla | ✅ |
 | `FX15` | **LD DT, Vx** | Establece Delay Timer | ✅ |

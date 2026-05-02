@@ -182,6 +182,12 @@ impl Chip8 {
             0xA000 => {
                 self.i = opcode & 0x0FFF;
             }
+            0xB000 => {
+                let nnn = opcode & 0x0FFF;
+                let v0 = self.v[0] as u16;
+
+                self.pc = nnn + v0;
+            }
             //El pintor
             0xD000 => {
                 let x = self.v[((opcode & 0x0F00) >> 8) as usize] as usize;

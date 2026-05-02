@@ -1,5 +1,6 @@
 use chip8::Chip8;
 use minifb::{Key, Window, WindowOptions};
+use std::env;
 use std::fs;
 use std::time::Duration;
 
@@ -58,9 +59,15 @@ fn main() {
     window.limit_update_rate(Some(Duration::from_micros(16667)));
 
     let mut chip8 = Chip8::new();
-    let rom = fs::read("src/roms/6-keypad.ch8").expect("No se puede leer la ROM");
+    let args: Vec<String> = env::args().collect();
+    let carpeta_roms = "roms/";
+    let rom = if args.len() > 1 {
+        format!("{}{}", carpeta_roms, args[1])
+    } else {
+        "roms/BETILLO.ch8".to_string()
+    };
+    let rom = fs::read(&rom).expect("Error: No se pudo encontrar o leer la ROM jeje :'(");
     chip8.load_rom(&rom);
-
     let mut buffer: Vec<u32> = vec![0; 64 * 32];
 
     while window.is_open() && !window.is_key_down(Key::Escape) {

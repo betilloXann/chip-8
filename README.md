@@ -68,7 +68,7 @@ A continuación se detalla el progreso de las 35 instrucciones estándar de CHIP
 | `9XY0` | **SNE Vx, Vy** | Salta si `VX != VY` | ✅ |
 | `ANNN` | **LD I, addr** | Establece `I = NNN` | ✅ |
 | `BNNN` | **JP V0, addr** | Salto a `NNN + V0` | ✅ |
-| `CXKK` | **RND Vx, byte** | `VX = random AND KK` | *Pendiente* |
+| `CXKK` | **RND Vx, byte** | `VX = random AND KK` | ✅ |
 | `DXYN` | **DRW Vx, Vy, n** | Dibuja sprite en pantalla | ✅ |
 | `EX9E` | **SKP Vx** | Salta si tecla en `VX` está pulsada | ✅ |
 | `EXA1` | **SKNP Vx** | Salta si tecla en `VX` NO está pulsada | ✅ |

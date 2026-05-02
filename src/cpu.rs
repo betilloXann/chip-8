@@ -187,8 +187,18 @@ impl Chip8 {
                 let v0 = self.v[0] as u16;
 
                 self.pc = nnn + v0;
+                self.pc = nnn.wrapping_add(v0) & 0x0FFF;
             }
-            0xC000 => {}
+            0xC000 => {
+                let x = ((opcode & 0x0F00) >> 8) as usize;
+                let kk = (opcode & 0x00FF) as u8;
+
+                self.semilla = self.semilla.wrapping_mul(1103515245).wrapping_add(12345);
+
+                let random = (self.semilla >> 16) as u8;
+
+                self.v[x] = random & kk;
+            }
             //El pintor
             0xD000 => {
                 let x = self.v[((opcode & 0x0F00) >> 8) as usize] as usize;

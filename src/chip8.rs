@@ -32,6 +32,7 @@ pub struct Chip8 {
     pub i: u16,                   //Registro de indice (Puntero auxiliar)
     pub display: [bool; 64 * 32], //Pantalla
     pub keypad: [bool; 16],       //Teclas
+    pub semilla: u32,             //Para generar numero aleatorio
 }
 
 impl Chip8 {
@@ -47,6 +48,7 @@ impl Chip8 {
             i: 0,
             display: [false; 64 * 32],
             keypad: [false; 16],
+            semilla: 0xACE1,
         };
 
         chip8.memory[..80].copy_from_slice(&FONTSET);
